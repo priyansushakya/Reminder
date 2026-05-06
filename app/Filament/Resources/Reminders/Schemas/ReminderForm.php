@@ -26,7 +26,8 @@ class ReminderForm
                 DateTimePicker::make('remind_at')
                     ->required(),
                 Toggle::make('is_sent')
-                    ->required(),
+                    ->disabled()
+                    ->dehydrated(false),
             ]);
     }
 }
