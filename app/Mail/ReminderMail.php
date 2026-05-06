@@ -9,17 +9,20 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Reminder;
 
 class ReminderMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $reminder;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(Reminder $reminder)
     {
-        //
+        $this->reminder = $reminder;
     }
 
     /**
@@ -28,7 +31,8 @@ class ReminderMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reminder Mail',
+            to: $this->reminder->email,
+            subject: $this->reminder->title,
         );
     }
 
@@ -38,7 +42,7 @@ class ReminderMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.reminder',
         );
     }
 
