@@ -8,17 +8,11 @@ use App\Models\Reminder;
 
 class ReminderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return Reminder::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -31,17 +25,11 @@ class ReminderController extends Controller
         return Reminder::create($data);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         return Reminder::findOrFail($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $reminder = Reminder::findOrFail($id);
@@ -59,9 +47,6 @@ class ReminderController extends Controller
         return $reminder;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $reminder = Reminder::findOrFail($id);

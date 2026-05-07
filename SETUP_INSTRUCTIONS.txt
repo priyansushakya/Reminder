@@ -1,0 +1,102 @@
+================================================================================
+REMINDER SYSTEM - SETUP & USAGE INSTRUCTIONS
+================================================================================
+
+INITIAL SETUP
+================================================================================
+
+1. Clone the Repository
+   git clone https://github.com/priyansushakya/Reminder.git
+   cd Reminder
+
+2. Install PHP Dependencies
+   composer install
+
+3. Create Environment File
+   cp .env.example .env
+   (Edit .env and configure your database and mail settings)
+
+4. Generate Application Key
+   php artisan key:generate
+
+5. Run Database Migrations
+   php artisan migrate
+
+Database used: (Mysql)
+
+================================================================================
+RUNNING THE APPLICATION
+================================================================================
+
+1. Start the Development Server
+   php artisan serve
+   (The app will be available at http://localhost:8000)
+
+2. Start the Queue Worker (in a separate terminal)
+   php artisan queue:work
+
+3. Set Up Scheduled Tasks (in a separate terminal)
+   php artisan schedule:work
+
+================================================================================
+CREATING A USER
+================================================================================
+
+1. Create Filament User via Terminal
+   php artisan make:filament-user
+   
+   Follow the prompts to enter:
+   - Name
+   - Email
+   - Password
+
+2. Login to Filament Admin Panel
+   1. Navigate to http://localhost:8000/admin
+   2. Log in with the email and password you just created
+   3. You can now manage users and reminders from the admin panel
+
+================================================================================
+TESTING THE REMINDER SYSTEM
+================================================================================
+
+1. Create a Reminder
+   - Log in to the application
+   - Navigate to the reminders section
+   - Fill in the reminder details (title, description, due date)
+   - Submit
+
+2. Check Queue Processing
+   - Verify the queue worker is running: php artisan queue:work
+   - Watch for emails being sent from the jobs
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Database Connection Issues:
+   - Update .env with correct database credentials
+   - Run: php artisan migrate --force
+
+Queue Not Processing:
+   - Ensure queue worker is running: php artisan queue:work
+   - Check database for failed_jobs table
+   - Run: php artisan queue:failed
+
+Email Not Sending:
+   - Verify mail settings in .env
+   - Check MAIL_DRIVER (options: smtp, mailgun, sendgrid, log)
+   - For testing, set MAIL_DRIVER=log and check storage/logs/
+
+================================================================================
+USEFUL COMMANDS
+================================================================================
+
+php artisan list                    - Show all available commands
+php artisan migrate                 - Run all pending migrations
+php artisan migrate:rollback        - Rollback last migration
+php artisan cache:clear             - Clear application cache
+php artisan route:list              - List all application routes
+php artisan queue:failed             - List failed jobs
+php artisan queue:retry all         - Retry all failed jobs
+
+================================================================================
